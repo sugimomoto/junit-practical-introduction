@@ -35,4 +35,10 @@ public class CalculatorTest {
 
         assertThat(actual, is(expected));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void divideで5と0のときillegalArgumentExceptionを創出する(){
+        Calculator calculator = new Calculator();
+        calculator.divide(5,0);
+    }
 }

@@ -2,12 +2,23 @@ package org.example;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
+
+    @Before
+    public void setUp(){
+        System.out.println("setUp");
+    }
+
+    @After
+    public void tearDown(){
+        System.out.println("tearDown");
+    }
 
     @Test
     public void multiplyで3と4の乗算結果が取得できる() {
@@ -41,4 +52,18 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         calculator.divide(5,0);
     }
+
+    @Test(timeout = 100L)
+    public void timeoutTest(){
+        Calculator calculator = new Calculator();
+        calculator.divide(5,0);
+    }
+
+    @Ignore
+    @Test
+    public void ignoreTest() throws Exception {
+        throw new Exception();
+    }
+
+
 }

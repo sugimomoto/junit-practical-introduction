@@ -1,9 +1,13 @@
 package org.example;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -57,6 +61,66 @@ public class CalculatorTest {
     public void timeoutTest(){
         Calculator calculator = new Calculator();
         calculator.divide(5,0);
+    }
+
+    @Test
+    public void fialTest(){
+        fail("未実装テスト");
+    }
+
+    @Test
+    public void hasItemsTest(){
+        List<String> actualList = Arrays.asList("Hello","World");
+        assertThat(actualList, hasItems("Hello"));
+    }
+
+    @Test
+    public void objectCompareTest() {
+        User actual = new User();
+        actual.setName("Hello");
+        actual.setAge(30);
+
+        User expect = new User();
+        expect.setName("World");
+        expect.setAge(30);
+
+        assertThat(actual, is(expect));
+    }
+
+    @Test
+    public void isNotTest(){
+        Calculator calculator = new Calculator();
+
+        assertThat(14, is(not(calculator.multiply(1,2))));
+    }
+
+    @Test
+    public void isNullValueTest(){
+        String actual = null;
+
+        assertThat(actual, is(nullValue()));
+    }
+
+    @Test
+    public void isNotNullValueTest(){
+        String actual = "";
+
+        assertThat(actual,is(notNullValue()));
+    }
+
+    @Test
+    public void sameInstanceTest(){
+        Calculator actual = new Calculator();
+        Calculator expect = actual;
+
+        assertThat(actual,is(sameInstance(expect)));
+    }
+
+    @Test
+    public void instanceOfTest(){
+        Calculator calculator = new Calculator();
+
+        assertThat(calculator,is(instanceOf(Calculator.class)));
     }
 
     @Ignore

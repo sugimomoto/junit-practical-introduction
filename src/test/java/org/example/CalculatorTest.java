@@ -136,5 +136,7 @@ public class CalculatorTest {
         assertThat(new Date(), is(dateOf(2020,1,1)));
     }
 
-
+    public static void main(String[] args){
+        org.junit.runner.JUnitCore.main(CalculatorTest.class.getName());
+    }
 }

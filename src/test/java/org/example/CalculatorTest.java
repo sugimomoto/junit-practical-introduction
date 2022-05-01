@@ -7,8 +7,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import static org.example.IsDate.dateOf;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -127,6 +129,11 @@ public class CalculatorTest {
     @Test
     public void ignoreTest() throws Exception {
         throw new Exception();
+    }
+
+    @Test
+    public void originalMatcherTest(){
+        assertThat(new Date(), is(dateOf(2020,1,1)));
     }
 
 

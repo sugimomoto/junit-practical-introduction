@@ -22,4 +22,5 @@ public interface ItemStock {
      * @return 在庫数が1以上の場合にtrue
      */
     boolean contains(String name);
+
 }

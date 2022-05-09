@@ -16,7 +16,7 @@ public class YamlSetup {
 
         // SetUp
         BookStore sut = new BookStore();
-        Book book = (Book)new Yaml().load(getClass().getResourceAsStream("book.yaml"));
+        Book book = (Book)new Yaml().load(getClass().getResourceAsStream("/book.yaml"));
 
         assertThat(book.getTitle(),is("Refactoring"));
     }
@@ -45,5 +45,11 @@ public class YamlSetup {
         assertThat(yaml.dump(user),is("name: HelloYaml\n\rage: 23"));
 
 
+    }
+
+    public static Book Bookオブジェクトの宣言的な記法による作成(){
+        return new Book(){
+            
+        }
     }
 }

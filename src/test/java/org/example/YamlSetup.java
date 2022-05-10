@@ -47,9 +47,4 @@ public class YamlSetup {
 
     }
 
-    public static Book Bookオブジェクトの宣言的な記法による作成(){
-        return new Book(){
-            
-        }
-    }
 }

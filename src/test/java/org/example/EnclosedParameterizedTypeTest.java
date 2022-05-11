@@ -6,6 +6,10 @@ import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import org.yaml.snakeyaml.Yaml;
+
+import java.io.InputStream;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -130,8 +134,26 @@ public class EnclosedParameterizedTypeTest{
         }
     }
 
+    @RunWith(Theories.class)
+    public static class CalculatorDataPointsYamlTest{
 
-    static class Fixture {
+        @DataPoints
+        public static Fixture[] getParams(){
+            InputStream in = CalculatorDataPointsYamlTest.class.getResourceAsStream("/params.yaml");
+            List<Fixture> fixtureList = (List<Fixture>)new Yaml().load(in);
+            Fixture[] fixtures = (fixtureList).toArray(new Fixture[0]);
+            return fixtures;
+        }
+
+        @Theory
+        public void add(Fixture p) throws Exception{
+            Calculator sut = new Calculator();
+            assertThat(sut.add(p.x,p.y),is(p.expected));
+        }
+    }
+
+
+    public static class Fixture {
         int x;
         int y;
         int expected;

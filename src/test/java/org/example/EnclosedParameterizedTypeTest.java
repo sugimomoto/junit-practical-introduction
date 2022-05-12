@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.DataPoints;
@@ -9,10 +10,12 @@ import org.junit.runner.RunWith;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
+import java.lang.reflect.Member;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Enclosed.class)
 public class EnclosedParameterizedTypeTest{
@@ -151,6 +154,50 @@ public class EnclosedParameterizedTypeTest{
             assertThat(sut.add(p.x,p.y),is(p.expected));
         }
     }
+
+    @RunWith(Theories.class)
+    public static class MemberTest{
+
+        @DataPoints
+        public static int[] AGES = {15, 20, 25, 30};
+
+        @DataPoints
+        public static Gender[] GENDERS = Gender.values();
+
+        @Theory
+        public void canEntryは25再以下の女性の場合にtrueを返す(int age, Gender gender) {
+            assumeTrue(age <= 25 && gender == Gender.FEMALE);
+            System.out.println("age: " + age +  " / gender: " + gender);
+            assertThat(canEntry(age, gender),is(true));
+        }
+
+        @Theory
+        public void canEntryは25再以下の女性でない場合にfalseを返す(int age, Gender gender){
+            assumeTrue(25 < age || gender != Gender.FEMALE);
+            System.out.println("age: " + age +  " / gender: " + gender);
+            assertThat(canEntry(age,gender),is(false));
+        }
+
+        private boolean canEntry(int age, Gender gender) {
+            return true;
+        }
+
+        private static enum Gender {
+            MAN,FEMALE
+        }
+    }
+
+
+    public static class WindowsOnlyTest{
+
+        // なるほど。環境依存系の前提条件を弾くのに利用できるね。良いね。
+        @Test
+        public void windows環境では改行はrn(){
+            assumeTrue(System.getProperty("os.name").contains("Windows"));
+            assertThat(System.getProperty("line.separator"),is("\r\n"));
+        }
+    }
+
 
 
     public static class Fixture {

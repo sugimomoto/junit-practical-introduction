@@ -1,5 +1,6 @@
 package org.example;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -37,6 +38,20 @@ public class RuleTest {
             assertThat(folder.list().length,is(1));
 
         }
+    }
+
+    public static class TemporaryFolderExtendTest{
+
+        @Rule
+        public SpecificTemporaryFolder specificTemporaryFolder = new SpecificTemporaryFolder();
+
+        @Test
+        public void subfoderTest() throws Exception{
+            File rootFolder = specificTemporaryFolder.getRoot();
+
+            assertThat(rootFolder.list().length, is(2));
+        }
+
     }
 
 

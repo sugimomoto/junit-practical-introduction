@@ -6,13 +6,16 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
+import org.junit.internal.AssumptionViolatedException;
 import org.junit.rules.*;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 
 import java.io.File;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 @RunWith(Enclosed.class)
 public class RuleTest {
@@ -111,6 +114,58 @@ public class RuleTest {
         }
 
 
+    }
+
+    public static class TestWatherExampleTest{
+
+        @Rule
+        public TestWatcher testWatcher = new TestWatcher() {
+            @Override
+            protected void succeeded(Description description) {
+                System.out.println("succeeded: " + description);
+            }
+
+            @Override
+            protected void failed(Throwable e, Description description) {
+                System.out.println("failed: " + description);
+            }
+
+            @Override
+            protected void skipped(AssumptionViolatedException e, Description description) {
+                System.out.println("skipped: " + description);
+            }
+
+            @Override
+            protected void starting(Description description) {
+                System.out.println("starting: " + description);
+            }
+
+            @Override
+            protected void finished(Description description) {
+                System.out.println("finished: " + description);
+            }
+        };
+        Calculator calculator = new Calculator();
+
+        @Test
+        public void 成功するテスト() throws Exception{
+            assertThat(calculator.add(1,2),is(3));
+        }
+
+        @Test
+        public void 失敗するテスト() throws Exception{
+            assertThat(calculator.add(1,2),is(2));
+        }
+    }
+
+    public static class TestNameExampleTest {
+        @Rule
+        public TestName testName = new TestName();
+
+        @Test
+        public void テスト名() throws Exception{
+            fail(testName.getMethodName() + " is unimplements yet.");
+        }
     }
 
 

@@ -22,4 +22,52 @@ public class MockItoTest {
 
         assertThat(mock.get(0),is("Hello"));
     }
+
+    @Test
+    public void MockItoListThrowTest(){
+        List<String> mock = mock(List.class);
+        assertThat(mock.get(0),is(nullValue()));
+
+        when(mock.get(0)).thenReturn("Hello");
+        when(mock.get(1)).thenReturn("World");
+        when(mock.get(2)).thenThrow(new IndexOutOfBoundsException());
+
+        assertThat(mock.get(0),is("Hello"));
+        assertThat(mock.get(1),is("World"));
+        assertThat(mock.get(2),is("Error"));
+    }
+
+    @Test
+    public void MockItoListVoidTest(){
+        List<String> mock = mock(List.class);
+
+        doThrow(new RuntimeException()).when(mock).clear();
+        mock.clear();
+    }
+
+    @Test
+    public void MockItoListArgumentTest(){
+        List<String> mock = mock(List.class);
+        when(mock.get(anyInt())).thenReturn("Hello");
+
+        assertThat(mock.get(0),is("Hello"));
+        assertThat(mock.get(1),is("Hello"));
+        assertThat(mock.get(999),is("Hello"));
+    }
+
+
+    @Test
+    public void MockItoListVerifyTest(){
+        List<String> mock = mock(List.class);
+
+        mock.clear();
+        mock.add("Hello");
+        mock.add("Hello");
+
+        verify(mock).clear();
+        verify(mock,times(2)).add("Hello");
+        verify(mock,never()).add("World");
+
+    }
+
 }

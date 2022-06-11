@@ -25,14 +25,15 @@ public class H2DatabaseServer extends ExternalResource {
     protected void before() throws Throwable{
 
         // DB サーバの機能
+        // サーバモードで起動させる。
         server = Server.createTcpServer("-baseDir",baseDir);
         server.start();
 
         // スキーマの設定
         Properties pros = new Properties();
         pros.setProperty("user","sa");
-        pros.setProperty("password","");
-        String url = "jdbc:h2:" + server.getURL() + "/" + dbName;
+        pros.setProperty("password","sa");
+        String url = "jdbc:h2:" + server.getURL() + "/" + baseDir + "/" + dbName;
         Connection conn = org.h2.Driver.load().connect(url,pros);
 
         try{

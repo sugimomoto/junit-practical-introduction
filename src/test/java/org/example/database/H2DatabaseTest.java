@@ -10,14 +10,14 @@ import java.util.Properties;
 public class H2DatabaseTest {
 
     @Rule
-    public H2DatabaseServer server = new H2DatabaseServer("h2","db","ut");
+    public H2DatabaseServer server = new H2DatabaseServer("C:/Work/h2","db","ut");
 
     @Test
     public void ReadTest() throws SQLException, ClassNotFoundException {
         System.out.println( "Hello World!" );
 
         Class.forName ("org.h2.Driver");
-        Connection conn = DriverManager.getConnection ("jdbc:h2:~/db", "sa","");
+        Connection conn = DriverManager.getConnection ("jdbc:h2:C:/Work/h2/db", "sa","sa");
 
         Statement st = conn.createStatement();
 

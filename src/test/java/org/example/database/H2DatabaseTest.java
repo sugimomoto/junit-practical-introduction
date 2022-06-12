@@ -7,6 +7,9 @@ import org.junit.Test;
 import java.sql.*;
 import java.util.Properties;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class H2DatabaseTest {
 
     @Rule
@@ -24,13 +27,16 @@ public class H2DatabaseTest {
         st.execute("DROP TABLE IF EXISTS TEST;");
         st.execute("CREATE TABLE TEST(ID INT PRIMARY KEY, NAME VARCHAR(255));");
         st.execute("INSERT INTO TEST VALUES(1, 'Hello');");
-        st.execute("INSERT INTO TEST VALUES(2, 'World');");
 
         ResultSet rs = st.executeQuery("SELECT * FROM TEST");
 
+        int count = 0;
+
         while(rs.next()){
-            System.out.println(rs.getString("ID"));
-            System.out.println(rs.getString("NAME"));
+            if(count == 0){
+                assertThat(rs.getString("ID"),is("1"));
+                assertThat(rs.getString("NAME"),is("Hello"));
+            }
         }
 
     }

@@ -78,7 +78,24 @@ public abstract class DbUnitTester extends AbstractDatabaseTester implements Tes
     abstract protected IDataSet createDataSet() throws Exception;
 
     @Override
-    public Statement apply(Statement base, Description description) {
-        return null;
+    public Statement apply(final Statement base, Description description) {
+
+        return new Statement() {
+            @Override
+            public void evaluate() throws Throwable {
+                before();
+                setDataSet(createDataSet());
+                onSetup();
+                try{
+                    base.evaluate();
+                }finally {
+                    try{
+                        after();
+                    }finally {
+                        onTearDown();
+                    }
+                }
+            }
+        };
     }
 }

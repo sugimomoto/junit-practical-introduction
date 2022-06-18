@@ -24,8 +24,8 @@ public class UserDao {
     }
 
     public Statement createStatement() throws SQLException{
-        String url = "jdbc:h2:tcp//localhost/db;SCHEMA=ut";
-        Connection connection = DriverManager.getConnection(url,"sa","");
+        String url = "jdbc:h2:C:/Work/h2/db;SCHEMA=ut";
+        Connection connection = DriverManager.getConnection(url,"sa","sa");
         return connection.createStatement();
     }
 }

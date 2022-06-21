@@ -19,7 +19,7 @@ public class UserDao {
     }
 
     public void insert(String username) throws SQLException{
-        String sql = "INSERT INTO users(name) VALUES(" + username + ")";
+        String sql = "INSERT INTO users(name) VALUES('" + username + "')";
         createStatement().executeUpdate(sql);
     }
 

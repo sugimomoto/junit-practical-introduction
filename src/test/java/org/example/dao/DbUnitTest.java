@@ -33,12 +33,15 @@ public class DbUnitTest {
     @Test
     public void SelectTest() throws SQLException {
         UserDao userDao = new UserDao();
+        userDao.insert("hello");
 
         List<String> users = userDao.getList();
 
-        assertThat(users.size(),is(2));
+        assertThat(users.size(),is(3));
 
         assertThat(users.get(0),is("Ichigo"));
         assertThat(users.get(1),is("Jiro"));
+        assertThat(users.get(2),is("hello"));
     }
+
 };

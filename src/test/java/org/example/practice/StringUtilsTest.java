@@ -21,4 +21,10 @@ public class StringUtilsTest {
     public void practiceJunitを入力するとpractice_junitが取得できる(){
         assertThat(StringUils.toSnakeCase("practiceJunit"),is("practice_junit"));
     }
+
+    @Test
+    public void SampleDBTestと入力するとsample_d_b_testが取得できる(){
+        assertThat(StringUils.toSnakeCase("SampleDBTest"),is("sample_d_b_test"));
+
+    }
 }

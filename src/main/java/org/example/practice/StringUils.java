@@ -11,7 +11,7 @@ public class StringUils {
         }
 
         String snake = text;
-        Pattern p = Pattern.compile("[A-Z]");
+        Pattern p = Pattern.compile("([A-Z])");
 
         for(;;){
             Matcher m = p.matcher(snake);

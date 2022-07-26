@@ -13,57 +13,56 @@ public class ItemStockTest {
 
     public static class 初期状態の場合{
         ItemStock sut;
+        Item book;
 
         @Before
         public void setUp(){
+            book = new Item("book",3800);
             sut = new ItemStock();
         }
 
         @Test
         public void getNumで0が取得できる(){
-            Item item = new Item("itemX",100);
-            assertThat(sut.getNum(item),is(0));
+            assertThat(sut.getNum(book),is(0));
         }
 
         @Test
         public void addでItemを追加するとgetNumで1が取得できる(){
-            Item item = new Item("itemX",100);
-            sut.add(item);
-
-            assertThat(sut.getNum(item),is(1));
+            sut.add(book);
+            assertThat(sut.getNum(book),is(1));
         }
     }
 
     public static class Itemが一つ追加されている場合{
         ItemStock sut;
+        Item book;
 
         @Before
         public void setUp(){
-            Item item = new Item("itemX",100);
+            book = new Item("book",3800);
             sut = new ItemStock();
-            sut.add(item);
+            sut.add(book);
         }
 
         @Test
-        public void getNumで0が取得できる(){
-            Item item = new Item("itemX",100);
-            assertThat(sut.getNum(item),is(1));
+        public void getNumで1が取得できる(){
+            assertThat(sut.getNum(book),is(1));
         }
 
         @Test
         public void addで同じ名前のItemを追加するとgetNumで2が取得できる(){
-            Item item = new Item("itemX",100);
-            sut.add(item);
+            sut.add(book);
 
-            assertThat(sut.getNum(item),is(2));
+            assertThat(sut.getNum(book),is(2));
         }
 
         @Test
         public void addで異なるItemを追加するとgetNumで1が取得できる(){
-            Item item = new Item("itemY",100);
-            sut.add(item);
+            Item bike = new Item("bike",57000);
+            sut.add(bike);
 
-            assertThat(sut.getNum(item),is(1));
+            assertThat(sut.getNum(bike),is(1));
+            assertThat(sut.getNum(book),is(1));
         }
 
     }

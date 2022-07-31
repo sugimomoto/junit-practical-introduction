@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.example.practice.Lists.list;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -31,6 +32,15 @@ public class FizzBuzzTest {
         assertThat(list.get(13),is("14"));
         assertThat(list.get(14),is("FizzBuzz"));
         assertThat(list.get(15),is("16"));
+
+
+
+    }
+
+    @Test
+    public void createFizzBuzzListで6まで取得できる(){
+        List<String> list = FizzBuzz.createFizzBuzzList(6);
+        assertThat(list,is(list("1","2","Fizz","4","Buzz","Fizz")));
 
     }
 }

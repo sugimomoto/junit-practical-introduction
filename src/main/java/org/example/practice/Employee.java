@@ -21,9 +21,10 @@ public class Employee {
 
         try{
             reader = new BufferedReader(new InputStreamReader(inputStream));
-
             for (;;){
+
                 String line = reader.readLine();
+
                 if(line == null){
                     break;
                 }
@@ -38,6 +39,8 @@ public class Employee {
 
             return employeeList;
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e){
             throw new RuntimeException(e);
         }finally {
             if(reader != null){

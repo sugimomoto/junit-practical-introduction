@@ -13,7 +13,7 @@ public class EmployeeTest {
 
     @Test
     public void loadでEmployeeの一覧を取得できる(){
-        InputStream input = getClass().getResourceAsStream("Employee.txt");
+        InputStream input = getClass().getResourceAsStream("/Employee.txt");
 
         List<Employee> employeeList = Employee.load(input);
 

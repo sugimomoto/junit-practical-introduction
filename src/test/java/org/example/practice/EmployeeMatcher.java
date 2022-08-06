@@ -31,12 +31,28 @@ public class EmployeeMatcher extends BaseMatcher<Employee> {
 
         Employee other = (Employee)actual;
 
-        if(notEquals(expected.getEmail(),other.getEmail())){
-
+        if(notEquals(expected.getFirstName(),other.getFirstName())){
+            field = "firstName";
+            expectedValue = expected.getFirstName();
+            actualValue = other.getFirstName();
+            return false;
         }
 
+        if(notEquals(expected.getLastName(),other.getLastName())){
+            field = "lastName";
+            expectedValue = expected.getLastName();
+            actualValue = other.getLastName();
+            return false;
+        }
 
-        return false;
+        if(notEquals(expected.getEmail(),other.getEmail())){
+            field = "email";
+            expectedValue = expected.getEmail();
+            actualValue = other.getEmail();
+            return false;
+        }
+
+        return true;
     }
 
     private boolean notEquals(Object obj, Object other) {
@@ -48,6 +64,11 @@ public class EmployeeMatcher extends BaseMatcher<Employee> {
 
     @Override
     public void describeTo(Description description) {
-
+        if(expected == null || field == null){
+            description.appendValue(expected);
+        }else{
+            description.appendText(field + " is ").appendValue(expectedValue)
+                    .appendValue(", but ").appendValue(actualValue);
+        }
     }
 }

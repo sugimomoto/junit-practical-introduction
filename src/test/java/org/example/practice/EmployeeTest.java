@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.InputStream;
 import java.util.List;
 
+import static org.example.practice.EmployeeMatcher.employee;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -19,10 +20,12 @@ public class EmployeeTest {
 
         assertThat(employeeList,is(notNullValue()));
         assertThat(employeeList.size(),is(1));
-        Employee employee = employeeList.get(0);
+        Employee expectEmployee = new Employee();
+        expectEmployee.setFirstName("Ichiro");
+        expectEmployee.setLastName("Tanaka");
+        expectEmployee.setEmail("ichiro@example.com");
 
-        assertThat(employee.getFirstName(),is("Ichiro"));
-        assertThat(employee.getLastName(),is("Tanaka"));
-        assertThat(employee.getEmail(),is("ichiro@example.com"));
+        assertThat(employeeList.get(0),is(employee(expectEmployee)));
+
     }
 }

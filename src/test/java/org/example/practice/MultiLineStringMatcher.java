@@ -43,7 +43,7 @@ public class MultiLineStringMatcher extends BaseMatcher {
 
 
     @Override
-    public boolean matches(Object item) {
+    public boolean matches(Object actual) {
         this.actual = actual;
         if(expected == null){
             return (actual == null);

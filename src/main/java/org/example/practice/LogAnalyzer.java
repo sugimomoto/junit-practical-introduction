@@ -1,7 +1,5 @@
 package org.example.practice;
 
-import jdk.internal.org.objectweb.asm.tree.analysis.AnalyzerException;
-
 import java.io.IOException;
 import java.util.Map;
 
